@@ -7,15 +7,22 @@
 
 class Solution:
     def deepestLeavesSum(self, root: TreeNode) -> int:
-        self.d = collections.defaultdict(int)
-
-        def dfs(root, counter):
-            if root is None:
-                return
-            self.d[counter] += root.val
-
-            dfs(root.left, counter + 1)
-            dfs(root.right, counter + 1)
-
-        dfs(root, 0)
-        return max(self.d.items(), key=operator.itemgetter(0))[1]
+        
+        queue = [root]
+        totol = 0
+        
+        while queue:
+            new_level = []
+            total = 0
+            for node in queue:
+                if node.left:
+                    new_level.append(node.left)
+                if node.right:
+                    new_level.append(node.right)
+                total += node.val
+            
+            queue = new_level
+            
+        return total
+            
+    
