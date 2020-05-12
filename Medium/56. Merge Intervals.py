@@ -15,14 +15,12 @@ class Solution:
             return intervals
         
         intervals.sort(key = lambda x: x[0])
-        stack = [intervals[0]]
-        for interval in intervals[1:]:
-            x = stack.pop()
-            if x[1] >= interval[0]:
-                x[1] = max(x[1], interval[1])
-                stack.append(x)
+        stack = []
+        
+        for interval in intervals:
+            if stack and stack[-1][1] >= interval[0]:
+                stack[-1][1] = max(stack[-1][1],interval[1])
             else:
-                stack.append(x)
                 stack.append(interval)
-            
+                
         return stack
