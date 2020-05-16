@@ -21,17 +21,13 @@ class Solution:
         oddLL = head
         evenLL = head2 = head.next
         
-        while (oddLL and oddLL.next) or (evenLL and evenLL.next):
+        while evenLL and evenLL.next:
             
-            if oddLL.next:
-                oddLL.next = oddLL.next.next
-                if oddLL.next:
-                    oddLL = oddLL.next
-            if evenLL.next:
-                evenLL.next = evenLL.next.next
-                evenLL = evenLL.next
+            oddLL.next = oddLL.next.next
+            oddLL = oddLL.next
+            evenLL.next = evenLL.next.next
+            evenLL = evenLL.next
+                
                 
         oddLL.next = head2        
         return head
-                
-        
