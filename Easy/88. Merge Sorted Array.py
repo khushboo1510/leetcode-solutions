@@ -14,22 +14,14 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        if n <= 0:
-            return
-        i = j = 0
-        arr = []
-        while i < len(nums1):
-            if i < m:
-                arr.append(nums1[i])
-                if j >= n or arr[0] < nums2[j]:
-                    nums1[i] = arr.pop(0)
-                else:
-                    nums1[i] = nums2[j]
-                    j += 1
+        i, j, p = m - 1, n - 1, m + n - 1
+        
+        while i >= 0 and j >= 0:
+            if nums1[i] > nums2[j]:
+                nums1[p] = nums1[i]
+                i -= 1
             else:
-                if arr and (j >= n or arr[0] < nums2[j]):
-                    nums1[i] = arr.pop(0)
-                else:
-                    nums1[i] = nums2[j]
-                    j += 1
-            i += 1
+                nums1[p] = nums2[j]
+                j -= 1
+            p -= 1
+        nums1[:j + 1] = nums2[:j + 1]
