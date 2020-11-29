@@ -17,22 +17,31 @@ EXAMPLE:
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
         
-        visited = []
+        visited = set()
         n = len(arr)
+        queue = deque()
+        queue += [start]
+        while queue:
+            index = queue.popleft()
+            if index not in visited and index >= 0 and index < n:
+                visited.add(index)
+                if arr[index] == 0:
+                    return True
+                queue += [index - arr[index], index + arr[index]]
+        return False
+            
         
-        def dfs(start: int):
-            
-            if start < 0 or start >= n:
+        #DFS Approach
+        """
+        self.visited = set()
+        def jump(index, n):
+            if index in self.visited or index < 0 or index >= n:
                 return False
-            
-            if start in visited:
-                return False
-            
-            visited.append(start)
-            
-            if arr[start] == 0:
+            self.visited.add(index)
+            if arr[index] == 0:
                 return True
-            
-            return dfs(start + arr[start]) or dfs(start - arr[start])
-        
-        return dfs(start)
+            print(index, index - arr[index], index + arr[index])
+            return jump(index - arr[index], n) or jump(index + arr[index], n)
+    
+        return jump(start, len(arr))
+        """
